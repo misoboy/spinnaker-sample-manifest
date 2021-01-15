@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spinnaker-sample-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+      - dev.misoboy.kr
+    secretName: misoboy-kr-tls
+  rules:
+  - host: "dev.misoboy.kr"
+    http:
+      paths:
+      - path: /sample
+        pathType: Prefix
+        backend:
+          service:
+            name: spinnaker-sample-service
+            port:
+              number: 8080
