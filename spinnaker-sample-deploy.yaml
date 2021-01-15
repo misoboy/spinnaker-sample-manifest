@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
+  annotations:
+    traffic.spinnaker.io/load-balancers: '["service spinnaker-sample-service"]'
   labels:
     app: spinnaker-sample-deploy
   name: spinnaker-sample-deploy
