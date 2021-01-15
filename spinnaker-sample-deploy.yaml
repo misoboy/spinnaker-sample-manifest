@@ -14,7 +14,6 @@ spec:
     metadata:
       labels:
         app: spinnaker-sample-deploy
-        service: spinnaker-sample-app
     spec:
       containers:
       - image: harbor.misoboy.kr/private-dev-misoboy/${parameters.imageTag}
