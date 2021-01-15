@@ -18,5 +18,11 @@ spec:
       containers:
       - image: harbor.misoboy.kr/private-dev-misoboy/${parameters.imageTag}
         name: spinnaker-sample-app
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3
       imagePullSecrets:
       - name: harbor-misoboy-registry
