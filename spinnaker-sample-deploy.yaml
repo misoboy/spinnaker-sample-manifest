@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: spinnaker-sample-deploy
+  name: spinnaker-sample-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spinnaker-sample-deploy
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spinnaker-sample-deploy
+    spec:
+      containers:
+      - image: harbor.misoboy.kr/private-dev-misoboy/spinnaker-sample-app:1.5
+        name: spinnaker-sample-app
+      imagePullSecrets:
+      - name: harbor-misoboy-registry
