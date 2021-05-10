@@ -1,27 +1,30 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
   annotations:
-    traffic.spinnaker.io/load-balancers: '["service spinnaker-sample-service"]'
+    strategy.spinnaker.io/max-version-history: '3'
+    traffic.spinnaker.io/load-balancers: '["service sample-backend-api-service"]'
   labels:
-    app: spinnaker-sample-deploy
-  name: spinnaker-sample-deploy
+    app: sample-backend-api-deploy
+  name: sample-backend-api-deploy
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: spinnaker-sample-deploy
+      app: sample-backend-api
   template:
     metadata:
       labels:
-        app: spinnaker-sample-deploy
+        app: sample-backend-api
     spec:
       containers:
-      - image: harbor.misoboy.kr/private-dev-misoboy/${parameters.imageTag}
-        name: spinnaker-sample-app
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
+        - image: harbor.misoboy.kr/sample-backend/sample-backend-app:${parameters.imageTag}
+          name: sample-backend-api
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /api/v1/user/
+              port: 8080
       imagePullSecrets:
-      - name: harbor-misoboy-registry
+        - name: harbor-misoboy-registry
