@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
   annotations:
     strategy.spinnaker.io/max-version-history: '3'
